@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ album.title }}{% endblock title %}
+{% block content %}
+<br>
+<p>Has elegido el álbum: <strong>{{ album.title | capfirst }}</strong></p>
+<img src="{{ album.picture.url }}" alt="{{ album.title }}" style="width: 300px; height: auto;">
+<ul>
+    <br>
+    <li>Año de Lanzamiento: <strong>{{ album.year }}</strong></li>
+    <li>Genero: <strong>{{ album.get_gender_display }}</strong></li>
+    <li>Artista:
+        {% if album.artist %}
+            <strong>{{ album.artist.first_name }} {{ album.artist.last_name }}</strong>
+            <br>
+            <img src="{{ album.artist.picture.url }}" alt="{{ album.artist.first_name }} {{ album.artist.last_name }}" style="width: 150px; height: auto;">
+        {% else %}
+            <strong>No tiene un artista registrado.</strong>
+        {% endif %}
+    </li>
+    <br>
+</ul>
+<a href="{% url 'album_manager:index' %}" class="btn btn-primary">Regresar</a>
+{% endblock content %}

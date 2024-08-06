@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ artist }}{% endblock title %}
+{% block content %}
+<br>
+<p>Has elegido el artista: <strong>{{ artist | capfirst }}</strong></p>
+<h3>Características:</h3>
+<ul>
+    <li>Edad: <strong>{{ artist.age }}</strong></li>
+    <li>Pais: <strong>{{ artist.country }}</strong></li>
+    <br>
+    <img src="{{ artist.picture.url }}" alt="" style="width: 150px; height: auto;">
+</ul>
+<ul>
+    <h4>Posee los siguientes albums:</h4>
+    {% for album in artist.album_set.all %}
+    <li>
+        <strong>{{ album.title }}</strong> - <strong>Género: </strong>{{ album.get_gender_display }}
+    </li>
+    <img src="{{ album.picture.url }}" alt="{{ album.title }}" style="width: 100px; height: auto;">
+    {% empty %}
+    <li>No tiene albums.</li>
+    {% endfor %}
+</ul>
+<a href="{% url "album_manager:artists" %}" class="btn btn-primary">Regresar</a>
+{% endblock content %}
